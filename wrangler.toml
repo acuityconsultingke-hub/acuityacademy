@@ -1,6 +1,9 @@
-name = "acuity-academy"
-compatibility_date = "2024-03-25"
-pages_build_output_dir = "dist"
+name = "acuityacademy"
+compatibility_date = "2026-03-25"
+
+[pages]
+build_output_dir = "dist"
+build_command = "npm run build"
 
 # [vars]
 # MY_VARIABLE = "my-variable-value"
