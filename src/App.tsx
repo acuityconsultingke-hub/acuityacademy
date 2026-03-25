@@ -45,7 +45,10 @@ import {
   MoreVertical,
   PlayCircle,
   Book,
-  Video
+  Video,
+  Settings,
+  Copy,
+  Github
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -239,11 +242,23 @@ interface Client {
   trainingMail: string;
 }
 
+interface Recruit {
+  id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  experience: string;
+  status: 'Applied' | 'Interviewing' | 'Offered' | 'Onboarded' | 'Rejected';
+  appliedDate: string;
+  source: string;
+  notes: string;
+}
+
 interface AcademyContent {
   id: string;
   title: string;
   description: string;
-  type: 'video' | 'article' | 'course';
+  type: 'video' | 'article' | 'course' | 'guide';
   duration: string;
   thumbnail: string;
   content: string;
@@ -342,12 +357,85 @@ const INITIAL_CLIENTS: Client[] = [
   { id: '1018', empId: 'EMP1018', fullName: 'Hannah Molly', email: 'test6@test.com', phone: '(111) 222 6666', role: 'Cashier', hireDate: '8/5/2022', photo: 'https://picsum.photos/seed/img2/200', onboarding: '', trainingMail: '' },
 ];
 
+const INITIAL_RECRUITS: Recruit[] = [
+  { id: '1', fullName: 'James Wilson', email: 'james.w@example.com', phone: '+254 711 222 333', experience: '5 years', status: 'Interviewing', appliedDate: '2024-03-10', source: 'LinkedIn', notes: 'Strong background in wealth management.' },
+  { id: '2', fullName: 'Sarah Mbeki', email: 'sarah.m@example.com', phone: '+254 722 333 444', experience: '3 years', status: 'Applied', appliedDate: '2024-03-15', source: 'Referral', notes: 'Highly recommended by current staff.' },
+  { id: '3', fullName: 'Robert Chen', email: 'robert.c@example.com', phone: '+254 733 444 555', experience: '8 years', status: 'Offered', appliedDate: '2024-03-05', source: 'Indeed', notes: 'Expert in corporate financial planning.' },
+];
+
 const ACADEMY_CONTENT: AcademyContent[] = [
-  { id: '1', title: 'Introduction to Financial Planning', description: 'Master the basics of wealth management.', type: 'course', duration: '45 mins', thumbnail: 'https://picsum.photos/seed/finance1/400/225', content: 'Full course content here...' },
-  { id: '2', title: 'Estate Planning 101', description: 'Protect your legacy and your loved ones.', type: 'article', duration: '10 mins', thumbnail: 'https://picsum.photos/seed/estate/400/225', content: 'Article content here...' },
-  { id: '3', title: 'Investment Strategies for 2026', description: 'Navigating the current market landscape.', type: 'video', duration: '15 mins', thumbnail: 'https://picsum.photos/seed/invest/400/225', content: 'Video link here...' },
-  { id: '4', title: 'Debt Management Masterclass', description: 'Strategies for effective debt restructuring.', type: 'course', duration: '60 mins', thumbnail: 'https://picsum.photos/seed/debt/400/225', content: 'Course content here...' },
-  { id: '5', title: 'Insurance Optimization', description: 'Getting the most out of your coverage.', type: 'article', duration: '12 mins', thumbnail: 'https://picsum.photos/seed/insurance/400/225', content: 'Article content here...' },
+  { 
+    id: '1', 
+    title: 'Introduction to Financial Planning', 
+    description: 'Learn the process of successfully meeting financial needs through proper management of finances.', 
+    type: 'guide', 
+    duration: '45 mins', 
+    thumbnail: 'https://picsum.photos/seed/finance1/400/225', 
+    content: 'Financial planning is your roadmap to Financial Health & Sustainable Wealth creation. It is the process of successfully meeting financial needs of life through the proper management of finances. Regardless of the level of your income or assets, you need financial planning. Myth: Only rich people need financial planning.' 
+  },
+  { 
+    id: '2', 
+    title: 'The Financial Planning Process', 
+    description: 'A step-by-step guide to creating and implementing your financial action plan.', 
+    type: 'guide', 
+    duration: '60 mins', 
+    thumbnail: 'https://picsum.photos/seed/process/400/225', 
+    content: 'Steps in Personal Financial Planning Process: 1. Determine current financial situation. 2. Develop Financial Goals. 3. Identify alternative courses of action. 4. Evaluate Alternatives. 5. Create and implement a financial action plan. 6. Evaluate, monitor and revise financial plan.' 
+  },
+  { 
+    id: '3', 
+    title: 'Asset Allocation Strategies', 
+    description: 'Why 94% of your portfolio return depends on asset allocation only.', 
+    type: 'video', 
+    duration: '15 mins', 
+    thumbnail: 'https://picsum.photos/seed/allocation/400/225', 
+    content: 'Asset allocation is investing a predefined percentage of your savings in different Asset classes. Diversification is key: Never put all your eggs in one basket. Different asset classes give better return for specific time duration. Asset classes include: Gold, Debt, Equity, Real Estate, Commodities, Insurance, and Art.' 
+  },
+  { 
+    id: '4', 
+    title: 'Risk Profiling & Management', 
+    description: 'Understanding your financial capacity and mental temperament for risk.', 
+    type: 'article', 
+    duration: '12 mins', 
+    thumbnail: 'https://picsum.photos/seed/risk/400/225', 
+    content: 'There are two types of Risk in any investment: Risk of Purchasing power loss and Risk of Capital loss. There is a strong correlation between risk & reward. The aim of financial planning is to get maximum return with minimum risk. Risk profile includes Financial Capacity, Mental capacity (Temperament), and Technical Knowledge.' 
+  },
+  { 
+    id: '5', 
+    title: 'Insurance & Emergency Kits', 
+    description: 'Protecting your current financial status with the right coverage.', 
+    type: 'guide', 
+    duration: '50 mins', 
+    thumbnail: 'https://picsum.photos/seed/insurance/400/225', 
+    content: 'Before planning new investment, it is very important to prepare an emergency kit to protect your current financial status. 3-6 months of total monthly expenses is the recommended emergency kitty size. Insurance is the first & vital step in any financial planning. Types of Risk: Personal Risks, Property Risks, Liability Risks.' 
+  },
+  { 
+    id: '6', 
+    title: 'Wealth Creation & Real Estate', 
+    description: 'Building long-term wealth through capital appreciation assets.', 
+    type: 'article', 
+    duration: '10 mins', 
+    thumbnail: 'https://picsum.photos/seed/realestate/400/225', 
+    content: 'The investment which brings cash in your pocket is an Asset. The investment which takes out cash from your pocket is a Liability. Equity & Real Estate are best long term Wealth creators. Real Estate Advantages: One good investment can change your financial life. Real estate backed financial instruments like the Centum Real Estate Bond are now available.' 
+  },
+  { 
+    id: '7', 
+    title: 'The Magic of Compounding', 
+    description: 'How regular, consistent investing leads to exponential growth.', 
+    type: 'video', 
+    duration: '8 mins', 
+    thumbnail: 'https://picsum.photos/seed/compound/400/225', 
+    content: 'Compound interest is interest earned on money that was previously earned as interest. This cycle leads to increasing interest and account balances at an increasing rate, sometimes known as exponential growth. When you get into a pattern of regular, consistent investing, the power of compounding interest can prove an effective growth strategy.' 
+  },
+  { 
+    id: '8', 
+    title: 'Retirement Planning Masterclass', 
+    description: 'Achieving financial freedom and the longest holiday of your life.', 
+    type: 'course', 
+    duration: '90 mins', 
+    thumbnail: 'https://picsum.photos/seed/retirement/400/225', 
+    content: 'Retirement doesn\'t mean stoppage of work; it means freedom from compulsion to work for money – Financial freedom. It is also known as the longest holiday of your life. Retirement planning includes identifying sources of income, sizing up expenses, implementing a savings program, and managing assets and risk. Rule of thumb: By 67, have 10 times your salary saved.' 
+  },
 ];
 
 // --- Components ---
@@ -359,7 +447,7 @@ const Logo = () => (
       <ChevronRight className="text-blue" size={28} strokeWidth={3} />
       <ChevronRight className="text-blue opacity-60" size={28} strokeWidth={3} />
     </div>
-    <span className="ml-2 text-xs font-bold text-blue uppercase tracking-widest hidden sm:inline">CRM & Academy</span>
+    <span className="ml-2 text-xs font-bold text-blue uppercase tracking-widest hidden sm:inline">Academy</span>
   </div>
 );
 
@@ -448,7 +536,7 @@ export default function App() {
   const [formData, setFormData] = useState<FormData>(INITIAL_DATA);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [view, setView] = useState<'questionnaire' | 'dashboard' | 'report'>('questionnaire');
-  const [activeModule, setActiveModule] = useState<'planner' | 'crm' | 'academy'>('planner');
+  const [activeModule, setActiveModule] = useState<'planner' | 'clients' | 'academy' | 'recruitment' | 'system'>('planner');
   const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('acuity_theme') === 'dark');
   const [lastSaved, setLastSaved] = useState<string | null>(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -458,6 +546,7 @@ export default function App() {
   const [authError, setAuthError] = useState<string | null>(null);
   
   const [clients, setClients] = useState<Client[]>(INITIAL_CLIENTS);
+  const [recruits, setRecruits] = useState<Recruit[]>(INITIAL_RECRUITS);
   const [academyContent] = useState<AcademyContent[]>(ACADEMY_CONTENT);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -959,9 +1048,11 @@ export default function App() {
             <nav className="hidden md:flex items-center space-x-1">
               {[
                 { id: 'planner', label: 'Planner', icon: Target },
-                { id: 'crm', label: 'CRM', icon: Users },
+                { id: 'clients', label: 'Clients', icon: Users },
+                { id: 'recruitment', label: 'Recruitment', icon: Briefcase },
                 { id: 'academy', label: 'Academy', icon: GraduationCap },
-              ].map((item) => (
+                { id: 'system', label: 'System', icon: Settings },
+              ].filter(item => (item.id !== 'clients' && item.id !== 'recruitment' && item.id !== 'system') || (user && user.email === 'akadzitu@gmail.com')).map((item) => (
                 <button
                   key={item.id}
                   onClick={() => setActiveModule(item.id as any)}
@@ -1872,7 +1963,7 @@ export default function App() {
       </>
     )}
 
-    {activeModule === 'crm' && (
+    {activeModule === 'clients' && (
       <div className="space-y-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -1959,7 +2050,7 @@ export default function App() {
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-1">
-              {['All', 'Courses', 'Videos', 'Articles'].map(tab => (
+              {['All', 'Guides', 'Videos', 'Articles'].map(tab => (
                 <button key={tab} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${tab === 'All' ? 'bg-blue text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}>
                   {tab}
                 </button>
@@ -1982,7 +2073,7 @@ export default function App() {
                 </div>
                 <div className="absolute top-4 left-4">
                   <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white ${
-                    item.type === 'course' ? 'bg-blue' : item.type === 'video' ? 'bg-red-500' : 'bg-green-500'
+                    item.type === 'guide' ? 'bg-blue' : item.type === 'video' ? 'bg-red-500' : 'bg-green-500'
                   }`}>
                     {item.type}
                   </span>
@@ -1995,8 +2086,8 @@ export default function App() {
                 <h3 className="text-lg font-bold text-navy dark:text-white mb-2 leading-tight">{item.title}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 line-clamp-2">{item.description}</p>
                 <button className="w-full py-3 bg-gray-100 dark:bg-gray-800 text-navy dark:text-white font-bold rounded-xl hover:bg-blue hover:text-white transition-all flex items-center justify-center space-x-2">
-                  {item.type === 'video' ? <Video size={18} /> : item.type === 'article' ? <Book size={18} /> : <PlayCircle size={18} />}
-                  <span>Start Learning</span>
+                  {item.type === 'video' ? <Video size={18} /> : item.type === 'article' ? <Book size={18} /> : <BookOpen size={18} />}
+                  <span>{item.type === 'video' ? 'Watch Video' : item.type === 'article' ? 'Read Article' : 'View Guide'}</span>
                 </button>
               </div>
             </motion.div>
@@ -2006,12 +2097,285 @@ export default function App() {
         <div className="bg-navy dark:bg-blue p-10 rounded-[2.5rem] text-white relative overflow-hidden">
           <div className="relative z-10 max-w-2xl">
             <h2 className="text-3xl font-black mb-4 uppercase tracking-tight">Personalized Learning Path</h2>
-            <p className="text-blue-100 mb-8">Based on your financial questionnaire, we've curated a specific set of courses to help you achieve your goals faster.</p>
+            <p className="text-blue-100 mb-8">Based on your financial questionnaire, we've curated a specific set of resources to help you achieve your goals faster.</p>
             <button className="px-8 py-4 bg-white text-navy font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl">
               View My Path
             </button>
           </div>
           <BookOpen className="absolute -right-10 -bottom-10 text-white/10 w-64 h-64 rotate-12" />
+        </div>
+      </div>
+    )}
+
+    {activeModule === 'recruitment' && (
+      <div className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-black text-navy dark:text-white uppercase tracking-tight">Broker Recruitment</h1>
+            <p className="text-gray-500 dark:text-gray-400">Track and manage potential broker recruits.</p>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input 
+                type="text"
+                placeholder="Search recruits..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 transition-all w-full md:w-64"
+              />
+            </div>
+            <button className="flex items-center space-x-2 px-4 py-2 bg-blue text-white rounded-xl font-bold hover:bg-blue/90 transition-all shadow-lg shadow-blue/20">
+              <Plus size={18} />
+              <span>New Recruit</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { label: 'Total Applied', value: recruits.length, color: 'bg-blue' },
+            { label: 'Interviewing', value: recruits.filter(r => r.status === 'Interviewing').length, color: 'bg-yellow-500' },
+            { label: 'Offered', value: recruits.filter(r => r.status === 'Offered').length, color: 'bg-purple-500' },
+            { label: 'Onboarded', value: recruits.filter(r => r.status === 'Onboarded').length, color: 'bg-green-500' },
+          ].map((stat, i) => (
+            <div key={i} className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">{stat.label}</p>
+              <div className="flex items-end justify-between">
+                <p className="text-3xl font-black text-navy dark:text-white">{stat.value}</p>
+                <div className={`w-8 h-1 rounded-full ${stat.color}`}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-100 dark:border-gray-800">
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Recruit</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Experience</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Status</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Applied Date</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Source</th>
+                  <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-gray-400 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
+                {recruits.filter(r => r.fullName.toLowerCase().includes(searchQuery.toLowerCase())).map((recruit) => (
+                  <tr key={recruit.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors group">
+                    <td className="px-6 py-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-blue/10 dark:bg-blue/20 rounded-full flex items-center justify-center text-blue font-bold">
+                          {recruit.fullName[0]}
+                        </div>
+                        <div>
+                          <p className="font-bold text-navy dark:text-white">{recruit.fullName}</p>
+                          <p className="text-xs text-gray-500">{recruit.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{recruit.experience}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                        recruit.status === 'Onboarded' ? 'bg-green-100 text-green-600' :
+                        recruit.status === 'Interviewing' ? 'bg-yellow-100 text-yellow-600' :
+                        recruit.status === 'Offered' ? 'bg-purple-100 text-purple-600' :
+                        recruit.status === 'Rejected' ? 'bg-red-100 text-red-600' :
+                        'bg-blue-100 text-blue-600'
+                      }`}>
+                        {recruit.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{recruit.appliedDate}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">{recruit.source}</td>
+                    <td className="px-6 py-4 text-right">
+                      <button className="p-2 text-gray-400 hover:text-blue transition-colors">
+                        <MoreVertical size={18} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <h3 className="text-xl font-bold text-navy dark:text-white mb-6">Recruitment Funnel</h3>
+            <div className="space-y-4">
+              {[
+                { label: 'Applied', count: recruits.length, total: recruits.length, color: 'bg-blue' },
+                { label: 'Interviewing', count: recruits.filter(r => r.status === 'Interviewing').length, total: recruits.length, color: 'bg-yellow-500' },
+                { label: 'Offered', count: recruits.filter(r => r.status === 'Offered').length, total: recruits.length, color: 'bg-purple-500' },
+                { label: 'Onboarded', count: recruits.filter(r => r.status === 'Onboarded').length, total: recruits.length, color: 'bg-green-500' },
+              ].map((item, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-gray-400">
+                    <span>{item.label}</span>
+                    <span>{item.count}</span>
+                  </div>
+                  <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(item.count / item.total) * 100}%` }}
+                      className={`h-full ${item.color}`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-blue-600 p-8 rounded-3xl text-white shadow-xl shadow-blue-200 relative overflow-hidden">
+            <div className="relative z-10">
+              <h3 className="text-2xl font-black mb-4 uppercase tracking-tight">Recruitment Drive</h3>
+              <p className="text-blue-100 mb-8">We are currently looking for experienced financial advisors to join our growing team. Share the recruitment link with your network.</p>
+              <div className="flex items-center space-x-2 bg-white/10 p-2 rounded-xl border border-white/20 mb-6">
+                <input 
+                  readOnly 
+                  value="acuity.academy/recruit" 
+                  className="bg-transparent border-none outline-none text-sm font-medium flex-1 px-2"
+                />
+                <button className="px-4 py-2 bg-white text-blue font-bold rounded-lg text-xs hover:bg-blue-50 transition-all">
+                  Copy Link
+                </button>
+              </div>
+              <button className="w-full py-4 bg-navy text-white font-bold rounded-2xl hover:bg-navy/90 transition-all">
+                Generate Recruitment Ad
+              </button>
+            </div>
+            <Briefcase className="absolute -right-10 -bottom-10 text-white/10 w-64 h-64 -rotate-12" />
+          </div>
+        </div>
+      </div>
+    )}
+
+    {activeModule === 'system' && (
+      <div className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-black text-navy dark:text-white uppercase tracking-tight">System Status</h1>
+            <p className="text-gray-500 dark:text-gray-400">Monitor your deployment, sync, and Cloudflare status.</p>
+          </div>
+          <button 
+            onClick={() => window.location.reload()}
+            className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-xl font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+          >
+            <RefreshCw size={18} />
+            <span>Refresh Status</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Deployment Status */}
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-navy dark:text-white">Deployment</h3>
+              <div className="px-3 py-1 bg-green-100 text-green-600 text-[10px] font-bold rounded-full uppercase">Live</div>
+            </div>
+            <div className="space-y-6">
+              <div>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">App URL</p>
+                <div className="flex items-center space-x-2 bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
+                  <code className="text-xs text-blue truncate flex-1">{window.location.origin}</code>
+                  <button 
+                    onClick={() => navigator.clipboard.writeText(window.location.origin)}
+                    className="p-1.5 text-gray-400 hover:text-blue transition-colors"
+                  >
+                    <Copy size={14} />
+                  </button>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Environment</p>
+                <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="w-2 h-2 bg-blue rounded-full"></div>
+                  <span>Google AI Studio Build (Cloud Run)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Cloudflare Connection */}
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-navy dark:text-white">Cloudflare</h3>
+              <div className="px-3 py-1 bg-green-100 text-green-600 text-[10px] font-bold rounded-full uppercase">Connected</div>
+            </div>
+            <div className="space-y-6">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-green-50 text-green-600 rounded-lg flex items-center justify-center shrink-0">
+                  <ShieldCheck size={18} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-navy dark:text-white">Secrets Configured</p>
+                  <p className="text-xs text-gray-500">API Token and Account ID are successfully linked.</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-blue/10 text-blue rounded-lg flex items-center justify-center shrink-0">
+                  <Globe size={18} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-navy dark:text-white">Worker Ready</p>
+                  <p className="text-xs text-gray-500">Wrangler is ready to deploy your academy worker.</p>
+                </div>
+              </div>
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-900/30">
+                <p className="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                  Your worker is now ready for deployment. You can trigger a deploy directly from the terminal or via GitHub sync.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* GitHub Sync */}
+          <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-navy dark:text-white">GitHub Sync</h3>
+              <div className="px-3 py-1 bg-purple-100 text-purple-600 text-[10px] font-bold rounded-full uppercase">Manual</div>
+            </div>
+            <div className="space-y-6">
+              <div className="flex items-start space-x-3">
+                <div className="w-8 h-8 bg-purple/10 text-purple-600 rounded-lg flex items-center justify-center shrink-0">
+                  <Github size={18} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-navy dark:text-white">Repository</p>
+                  <p className="text-xs text-gray-500">Linked to: github.com/daos</p>
+                </div>
+              </div>
+              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-2xl border border-purple-100 dark:border-purple-900/30">
+                <p className="text-xs text-purple-700 dark:text-purple-300 leading-relaxed">
+                  To push the latest changes (Recruitment module, Worker setup) to GitHub, use the <strong>Sync with GitHub</strong> option in the AI Studio Settings menu.
+                </p>
+              </div>
+              <button className="w-full py-3 bg-navy text-white font-bold rounded-xl hover:bg-navy/90 transition-all text-sm">
+                Open GitHub Repo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-navy dark:bg-blue p-10 rounded-[2.5rem] text-white relative overflow-hidden">
+          <div className="relative z-10">
+            <h2 className="text-3xl font-black mb-4 uppercase tracking-tight">Cloudflare Tunnel Setup</h2>
+            <p className="text-blue-100 mb-8 max-w-2xl">
+              To use a custom domain, point your Cloudflare Tunnel to the <strong>App URL</strong> shown above. This creates a secure bridge between your AI Studio preview and your public domain.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <button className="px-8 py-4 bg-white text-navy font-bold rounded-2xl hover:bg-blue-50 transition-all shadow-xl">
+                Tunnel Documentation
+              </button>
+              <button className="px-8 py-4 bg-white/10 text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20">
+                Copy App URL
+              </button>
+            </div>
+          </div>
+          <Settings className="absolute -right-10 -bottom-10 text-white/10 w-64 h-64 rotate-12" />
         </div>
       </div>
     )}

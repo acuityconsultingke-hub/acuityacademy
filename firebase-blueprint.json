@@ -14,12 +14,74 @@
         "updatedAt": { "type": "string", "format": "date-time", "description": "The last time the data was saved." }
       },
       "required": ["uid", "formData"]
+    },
+    "Client": {
+      "title": "Client Profile",
+      "description": "Stores client information for internal management.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "empId": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "role": { "type": "string" },
+        "hireDate": { "type": "string" },
+        "photo": { "type": "string" },
+        "onboarding": { "type": "string" },
+        "trainingMail": { "type": "string" }
+      },
+      "required": ["id", "fullName", "email"]
+    },
+    "Recruit": {
+      "title": "Broker Recruit",
+      "description": "Stores potential broker recruit information.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "experience": { "type": "string" },
+        "status": { "type": "string", "enum": ["Applied", "Interviewing", "Offered", "Onboarded", "Rejected"] },
+        "appliedDate": { "type": "string" },
+        "source": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "fullName", "email", "status"]
+    },
+    "AcademyContent": {
+      "title": "Academy Content",
+      "description": "Stores educational content for the Financial Academy.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string", "enum": ["video", "article", "guide"] },
+        "duration": { "type": "string" },
+        "thumbnail": { "type": "string" },
+        "content": { "type": "string" }
+      },
+      "required": ["id", "title", "type"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": "User",
       "description": "Collection of user profiles and their financial data."
+    },
+    "/clients/{clientId}": {
+      "schema": "Client",
+      "description": "Collection of client profiles."
+    },
+    "/recruits/{recruitId}": {
+      "schema": "Recruit",
+      "description": "Collection of broker recruits."
+    },
+    "/academy/{contentId}": {
+      "schema": "AcademyContent",
+      "description": "Collection of educational content."
     }
   }
 }
