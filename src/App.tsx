@@ -2348,7 +2348,7 @@ export default function App() {
           <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-sm">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-navy dark:text-white">GitHub Sync</h3>
-              <div className="px-3 py-1 bg-purple-100 text-purple-600 text-[10px] font-bold rounded-full uppercase">Manual</div>
+              <div className="px-3 py-1 bg-purple-100 text-purple-600 text-[10px] font-bold rounded-full uppercase">Manual Trigger</div>
             </div>
             <div className="space-y-6">
               <div className="flex items-start space-x-3">
@@ -2356,17 +2356,25 @@ export default function App() {
                   <Github size={18} />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-navy dark:text-white">Repository</p>
-                  <p className="text-xs text-gray-500">Linked to: github.com/daos</p>
+                  <p className="text-sm font-bold text-navy dark:text-white">daos/acuityacademy</p>
+                  <p className="text-xs text-gray-500">Linked Repository</p>
                 </div>
               </div>
               <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-2xl border border-purple-100 dark:border-purple-900/30">
+                <div className="flex items-center space-x-2 text-purple-600 mb-2">
+                  <RefreshCw size={14} className="animate-spin-slow" />
+                  <p className="text-xs font-bold uppercase tracking-wider">Workflow Info</p>
+                </div>
                 <p className="text-xs text-purple-700 dark:text-purple-300 leading-relaxed">
-                  To push the latest changes (Recruitment module, Worker setup) to GitHub, use the <strong>Sync with GitHub</strong> option in the AI Studio Settings menu.
+                  Syncing to GitHub is <strong>manual</strong> for security. Once you sync, <strong>Cloudflare</strong> will automatically deploy your changes.
                 </p>
               </div>
-              <button className="w-full py-3 bg-navy text-white font-bold rounded-xl hover:bg-navy/90 transition-all text-sm">
-                Open GitHub Repo
+              <button 
+                onClick={() => alert('Please use the "Sync with GitHub" option in the AI Studio Settings menu (Gear Icon).')}
+                className="w-full py-3 bg-navy text-white font-bold rounded-xl hover:bg-navy/90 transition-all text-sm flex items-center justify-center space-x-2"
+              >
+                <Github size={16} />
+                <span>Trigger Sync Workflow</span>
               </button>
             </div>
           </div>
