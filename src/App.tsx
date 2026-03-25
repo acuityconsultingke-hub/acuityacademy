@@ -2380,6 +2380,36 @@ export default function App() {
           </div>
         </div>
 
+        <div className="bg-red-50 dark:bg-red-900/10 p-10 rounded-[2.5rem] border border-red-100 dark:border-red-900/20 relative overflow-hidden">
+          <div className="relative z-10">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-red-100 dark:bg-red-900/30 text-red-600 rounded-2xl flex items-center justify-center">
+                <AlertCircle size={24} />
+              </div>
+              <h2 className="text-3xl font-black text-navy dark:text-white uppercase tracking-tight">Fixing 522 Errors</h2>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-2xl">
+              A 522 error means Cloudflare cannot reach your AI Studio "host." This happens when your Cloudflare Tunnel is pointing to an outdated URL. Update your <strong>Service URL</strong> in Cloudflare to the one below:
+            </p>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+              <div className="flex-1 bg-white dark:bg-gray-900 p-4 rounded-2xl border border-red-200 dark:border-red-800 font-mono text-xs text-red-600 break-all">
+                {window.location.origin}
+              </div>
+              <button 
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.origin);
+                  alert('Origin URL copied! Paste this into your Cloudflare Tunnel settings.');
+                }}
+                className="px-8 py-4 bg-red-600 text-white font-bold rounded-2xl hover:bg-red-700 transition-all shadow-xl flex items-center space-x-2"
+              >
+                <Copy size={18} />
+                <span>Copy Origin URL</span>
+              </button>
+            </div>
+          </div>
+          <Activity className="absolute -right-10 -bottom-10 text-red-600/5 w-64 h-64 -rotate-12" />
+        </div>
+
         <div className="bg-navy dark:bg-blue p-10 rounded-[2.5rem] text-white relative overflow-hidden">
           <div className="relative z-10">
             <h2 className="text-3xl font-black mb-4 uppercase tracking-tight">Cloudflare Tunnel Setup</h2>
