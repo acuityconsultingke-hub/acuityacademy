@@ -2420,6 +2420,37 @@ export default function App() {
                     <span className="text-gray-400">URL:</span>
                     <span className="font-bold text-blue truncate ml-4">ais-dev-jazexha7rkyxzo75ofsckm-258783686683.europe-west1.run.app</span>
                   </div>
+                  <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+                    <p className="text-[10px] font-bold text-red-500 uppercase mb-1">Important: Fix 404 Error</p>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-gray-400">Host Header:</span>
+                      <span className="font-bold text-navy dark:text-white truncate ml-2">ais-dev-jazexha7rkyxzo75ofsckm-258783686683.europe-west1.run.app</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white dark:bg-gray-900 p-6 rounded-2xl border border-blue-200 dark:border-blue-900">
+                <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">3. Automatic GitHub Sync</p>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-[10px] font-bold text-blue-600 shrink-0">1</div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Click <span className="font-bold text-navy dark:text-white">"Sync with GitHub"</span> in AI Studio Settings.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-[10px] font-bold text-blue-600 shrink-0">2</div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">In Cloudflare, go to <span className="font-bold text-navy dark:text-white">Workers & Pages</span> &gt; <span className="font-bold text-navy dark:text-white">Create</span> &gt; <span className="font-bold text-navy dark:text-white">Pages</span>.</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-[10px] font-bold text-blue-600 shrink-0">3</div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">
+                      <p className="mb-1">Use these Build Settings:</p>
+                      <ul className="list-disc ml-4 space-y-1">
+                        <li>Command: <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded">npm run build</code></li>
+                        <li>Output: <code className="bg-gray-100 dark:bg-gray-800 px-1 rounded">dist</code></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
