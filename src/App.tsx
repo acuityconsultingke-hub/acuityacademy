@@ -2278,22 +2278,24 @@ export default function App() {
             </div>
             <div className="space-y-6">
               <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">App URL</p>
-                <div className="flex items-center space-x-2 bg-gray-50 dark:bg-gray-800 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
-                  <code className="text-xs text-blue truncate flex-1">{window.location.origin}</code>
-                  <button 
-                    onClick={() => navigator.clipboard.writeText(window.location.origin)}
-                    className="p-1.5 text-gray-400 hover:text-blue transition-colors"
-                  >
-                    <Copy size={14} />
-                  </button>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Google Cloud Service</p>
+                <div className="flex items-center space-x-2 bg-green-50 dark:bg-green-900/20 p-3 rounded-xl border border-green-100 dark:border-green-900/30">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-bold text-green-700 dark:text-green-300">Running (Cloud Run)</span>
                 </div>
               </div>
               <div>
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Environment</p>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">SSL/TLS Mode</p>
                 <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                  <div className="w-2 h-2 bg-blue rounded-full"></div>
-                  <span>Google AI Studio Build (Cloud Run)</span>
+                  <ShieldCheck size={16} className="text-green-500" />
+                  <span className="font-bold">Full (Encrypted)</span>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Public Domain</p>
+                <div className="flex items-center space-x-2 text-sm text-blue font-bold">
+                  <Globe size={16} />
+                  <span>acuityke.site</span>
                 </div>
               </div>
             </div>
